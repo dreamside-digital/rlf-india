@@ -883,3 +883,26 @@ export function fetchUsers() {
 export function setUsers(users) {
   return { type: "SET_USERS", users }
 }
+
+export function fetchAccessCode() {
+  return (dispatch, getState) => {
+
+    console.log("fetching access code")
+    const db = firebase.database();
+
+    db.ref(`access_code`)
+      .once('value')
+      .then(snap => {
+        const accessCode = snap.val()
+        console.log("accessCode", accessCode)
+        dispatch(setAccessCode(accessCode));
+      })
+      .catch(error => {
+        console.log("Error fetching access code", error)
+      })
+  };
+}
+
+export function setAccessCode(accessCode) {
+  return { type: 'SET_ACCESS_CODE', accessCode }
+}

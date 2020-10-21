@@ -208,7 +208,7 @@ class HomePage extends React.Component {
           />
         </Section>
 
-        <Section id="logistics" className="bg-white">
+        <Section id="logistics" className="bg-secondary text-black">
           <Grid container>
             <Grid item xs={12} md={8}>
               <div className="">

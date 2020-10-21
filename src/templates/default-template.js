@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "gatsby";
 import Helmet from "react-helmet";
 import Container from "@material-ui/core/Container"
-import { findIndex } from "lodash"
 
 import { connect } from "react-redux";
 import { EditableImageUpload } from "react-easy-editables";
@@ -78,7 +77,6 @@ class DefaultTemplate extends React.Component {
     const pageData = this.props.pageData ? this.props.pageData : this.props.data.pages;
     const content = this.props.pageData ? this.props.pageData.content : JSON.parse(this.props.data.pages.content);
     const sections = content.sections && content.sections.length > 0 ? content.sections : [{ content: [] }];
-    const nextPage = this.props.pages[pageData.next];
 
     return (
       <Layout>

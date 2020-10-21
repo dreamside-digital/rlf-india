@@ -18,8 +18,6 @@ import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
 import ProgramElements from "../components/common/ProgramElements"
-import Hashtags from "../components/common/Hashtags"
-
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -185,13 +183,13 @@ class HomePage extends React.Component {
           </section>
         </EditableBackgroundImage>
 
-        <Section id="intro" className={`position-relative bg-primary`}>
+        <Section id="intro" className={`position-relative bg-white`}>
           <Grid container className="title" justify="flex-start" data-aos="fade-up">
             <Grid item xs={12} md={8}>
-              <h2 className="text-white">
+              <h2 className="text-dark">
                 <EditableText content={content["intro-title"]} onSave={this.onSave("intro-title")} />
               </h2>
-              <EditableParagraph classes="text-white" content={content["intro-text"]} onSave={this.onSave("intro-text")} />
+              <EditableParagraph classes="text-dark" content={content["intro-text"]} onSave={this.onSave("intro-text")} />
             </Grid>
           </Grid>
           <Grid container className="title" justify="flex-end" data-aos="fade-up">
@@ -236,44 +234,15 @@ class HomePage extends React.Component {
           </Grid>
         </Section>
 
-        <Section id="social" className="bg-primary text-white">
+        <Section id="participants">
           <Grid container>
-            <Grid item xs={12}>
+            <Grid item md={8} className="mb-4">
               <h2 className="text-bold">
-                <EditableText content={content["social-title"]} onSave={this.onSave("social-title")} />
+                <EditableText content={content["participants-title"]} onSave={this.onSave("participants-title")} />
               </h2>
-              <Hashtags
-                content={content["hashtags"]}
-                onSave={this.onSave("hashtags")}
-              />
+              <EditableParagraph classes="font-size-h4" content={content["participants-description"]} onSave={this.onSave("participants-description")} />
             </Grid>
-
-            <Grid item xs={12}>
-              <div className="mt-10 mb-5">Featured Tweet</div>
-              <div className="margin-center max-width-600" data-aos="fade-up">
-                <EditableParagraph classes="font-size-h4" content={content["social-featured-tweet"]} onSave={this.onSave("social-featured-tweet")} />
-              </div>
-            </Grid>
-          </Grid>
-          <div className="mt-10 mb-5">Twitter Live Feed</div>
-          <Grid container>
-            {
-              this.state.tweets.slice(0, this.state.tweetCount).map(tweet => (
-                <Grid item md={6} key={tweet.created_at}>
-                  <div className="twitter-live-feed mb-4" data-aos="fade-up" dangerouslySetInnerHTML={{__html: tweet.full_text}}>
-                  </div>
-                </Grid>
-              ))
-            }
-            {
-              this.state.tweetCount < this.state.tweets.length &&
-              <Grid container justify="center" className="mt-6">
-                <Grid item>
-                  <button className="btn" onClick={() => this.setState({tweetCount: this.state.tweetCount + 2})}>Load more
-                  </button>
-                </Grid>
-              </Grid>
-            }
+            <Gallery content={content["participants-collection"]} onSave={this.onSave("participants-collection")} />
           </Grid>
         </Section>
       </Layout>

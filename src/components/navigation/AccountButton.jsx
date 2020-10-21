@@ -15,7 +15,6 @@ import {
 
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItem from "@material-ui/core/ListItem";
 import Menu from "@material-ui/core/Menu";
 
 const styles = {
@@ -30,13 +29,6 @@ const styles = {
     alignItems: "center"
   }
 };
-
-// let envLabel = 'Development'
-// if (process.env.GATSBY_ACTIVE_ENV === "staging") {
-//   envLabel = 'Staging Site'
-// } else if (process.env.GATSBY_ACTIVE_ENV === "production") {
-//   envLabel = 'Public Site'
-// }
 
 
 class AccountButton extends React.Component {

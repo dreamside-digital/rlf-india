@@ -69,7 +69,7 @@ class Header extends React.Component {
         <a className='menu-item' href="#program-elements" onClick={this.handleClick}><EditableText content={content["nav-link-text-2"]} onSave={this.onSave("nav-link-text-2")} /></a>
         <a className='menu-item' href="#logistics" onClick={this.handleClick}><EditableText content={content["nav-link-text-3"]} onSave={this.onSave("nav-link-text-3")} /></a>
         <a className='menu-item' href="#gallery" onClick={this.handleClick}><EditableText content={content["nav-link-text-5"]} onSave={this.onSave("nav-link-text-5")} /></a>
-        <a className='menu-item' href="#social" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
+        <a className='menu-item' href="#participants" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
       </div>
     )
   }
@@ -91,7 +91,7 @@ class Header extends React.Component {
             <a className='navbar-item' href="#program-elements" onClick={this.handleClick}><EditableText content={content["nav-link-text-2"]} onSave={this.onSave("nav-link-text-2")} /></a>
             <a className='navbar-item' href="#logistics" onClick={this.handleClick}><EditableText content={content["nav-link-text-3"]} onSave={this.onSave("nav-link-text-3")} /></a>
             <a className='navbar-item' href="#gallery" onClick={this.handleClick}><EditableText content={content["nav-link-text-5"]} onSave={this.onSave("nav-link-text-5")} /></a>
-            <a className='navbar-item' href="#social" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
+            <a className='navbar-item' href="#participants" onClick={this.handleClick}><EditableText content={content["nav-link-text-6"]} onSave={this.onSave("nav-link-text-6")} /></a>
           </div>
           {
             this.container && ReactDOM.createPortal(this.menu(), this.container)

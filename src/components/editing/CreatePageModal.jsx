@@ -1,7 +1,5 @@
 import React from "react";
 import slugify from "slugify";
-import { find } from 'lodash';
-
 import { connect } from "react-redux";
 import {
   toggleNewPageModal,
@@ -16,12 +14,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
-import { PAGE_TYPES, LANGUAGE_OPTIONS, CATEGORY_OPTIONS } from "../../utils/constants";
+import { PAGE_TYPES } from "../../utils/constants";
 
 import defaultContentJSON from "../../fixtures/pageContent.json";
 

@@ -10,7 +10,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { push, Link } from 'gatsby'
 
-import firebase from "../firebase/init";
 import Layout from '../layouts/default';
 import ProtectedPage from "../layouts/protected-page"
 

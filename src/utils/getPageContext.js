@@ -8,14 +8,14 @@ import { createMuiTheme, createGenerateClassName } from '@material-ui/core/style
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "#c3d7d4",
-      main: "#00A6CE", // blue
-      dark: "#234148",
+      light: "#C34580",
+      main: "#C34580", // magenta
+      dark: "#C34580",
     },
     secondary: {
-      light: "#9DAAB7",
-      main: "#535F6C", // purple
-      dark: "#363648",
+      light: "#817f7e",
+      main: "#817f7e", // gray-500
+      dark: "#817f7e",
     },
     error: {
       light: "#FB9D5D",

@@ -17,6 +17,7 @@ import { uploadImage } from '../firebase/operations';
 import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
+import ParticipantGallery from "../components/common/ParticipantGallery"
 import ProgramElements from "../components/common/ProgramElements"
 
 const mapDispatchToProps = dispatch => {
@@ -105,6 +106,7 @@ class HomePage extends React.Component {
             content={content["landing-bg-image"]}
             onSave={this.onSave("landing-bg-image")}
             uploadImage={uploadImage}
+            styles={{ backgroundPosition: 'bottom' }}
           >
             <section id="landing" className="animate__animated animate__fadeIn">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -164,6 +166,7 @@ class HomePage extends React.Component {
           content={content["landing-bg-image"]}
           onSave={this.onSave("landing-bg-image")}
           uploadImage={uploadImage}
+          styles={{ backgroundPosition: 'bottom' }}
         >
           <section id="landing" data-aos="fade-down">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -242,7 +245,7 @@ class HomePage extends React.Component {
               </h2>
               <EditableParagraph classes="font-size-h4" content={content["participants-description"]} onSave={this.onSave("participants-description")} />
             </Grid>
-            <Gallery content={content["participants-collection"]} onSave={this.onSave("participants-collection")} />
+            <ParticipantGallery content={content["participants-collection"]} onSave={this.onSave("participants-collection")} />
           </Grid>
         </Section>
       </Layout>

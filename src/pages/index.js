@@ -17,6 +17,7 @@ import { uploadImage } from '../firebase/operations';
 import Layout from "../layouts/default.js";
 import Section from "../components/common/Section"
 import Gallery from "../components/common/Gallery"
+import ParticipantGallery from "../components/common/ParticipantGallery"
 import ProgramElements from "../components/common/ProgramElements"
 
 const mapDispatchToProps = dispatch => {
@@ -242,7 +243,7 @@ class HomePage extends React.Component {
               </h2>
               <EditableParagraph classes="font-size-h4" content={content["participants-description"]} onSave={this.onSave("participants-description")} />
             </Grid>
-            <Gallery content={content["participants-collection"]} onSave={this.onSave("participants-collection")} />
+            <ParticipantGallery content={content["participants-collection"]} onSave={this.onSave("participants-collection")} />
           </Grid>
         </Section>
       </Layout>

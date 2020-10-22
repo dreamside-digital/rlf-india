@@ -106,6 +106,7 @@ class HomePage extends React.Component {
             content={content["landing-bg-image"]}
             onSave={this.onSave("landing-bg-image")}
             uploadImage={uploadImage}
+            styles={{ backgroundPosition: 'bottom' }}
           >
             <section id="landing" className="animate__animated animate__fadeIn">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -165,6 +166,7 @@ class HomePage extends React.Component {
           content={content["landing-bg-image"]}
           onSave={this.onSave("landing-bg-image")}
           uploadImage={uploadImage}
+          styles={{ backgroundPosition: 'bottom' }}
         >
           <section id="landing" data-aos="fade-down">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>

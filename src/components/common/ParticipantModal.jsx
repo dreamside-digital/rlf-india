@@ -13,7 +13,7 @@ import {uploadImage} from "../../firebase/operations";
 const emptyParticipant = {
   name: '',
   affiliateOrganization: '',
-  description: '',
+  description: 'Participant bio',
   image: {},
 }
 
@@ -107,6 +107,7 @@ class ParticipantModal extends React.Component {
           <RichTextEditor
             content={{ text: description }}
             onContentChange={handleDescChange('description')}
+            classes="mb-1"
           />
           <ImageUploadEditor
             content={image}
@@ -144,7 +145,7 @@ class ParticipantModal extends React.Component {
 
 ParticipantModal.defaultProps = {
   onSaveItem: () => console.log("uh oh you're missing onSaveItem"),
-  event: emptyParticipant,
+  participant: emptyParticipant,
   showModal: false
 }
 

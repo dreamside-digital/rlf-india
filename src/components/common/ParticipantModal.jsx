@@ -84,6 +84,11 @@ class ParticipantModal extends React.Component {
               Fill out this form to add a new participant.
             </DialogContentText>
           }
+          <ImageUploadEditor
+            content={image}
+            onContentChange={handleImageChange('image')}
+            uploadImage={uploadImage}
+          />
           <TextField
             value={name}
             margin="dense"
@@ -104,14 +109,49 @@ class ParticipantModal extends React.Component {
             onChange={handleChange('affiliateOrganization')}
             variant="outlined"
           />
+          <TextField
+            value={name}
+            margin="dense"
+            id="twitter"
+            label="Twitter URL"
+            type="text"
+            fullWidth
+            onChange={handleChange('twitter')}
+            variant="outlined"
+          />
+          <TextField
+            value={name}
+            margin="dense"
+            id="linkedin"
+            label="Linkedin URL"
+            type="text"
+            fullWidth
+            onChange={handleChange('linkedin')}
+            variant="outlined"
+          />
+          <TextField
+            value={name}
+            margin="dense"
+            id="instagram"
+            label="Instagram URL"
+            type="text"
+            fullWidth
+            onChange={handleChange('instagram')}
+            variant="outlined"
+          />
+          <TextField
+            value={name}
+            margin="dense"
+            id="website"
+            label="Website"
+            type="text"
+            fullWidth
+            onChange={handleChange('website')}
+            variant="outlined"
+          />
           <RichTextEditor
             content={{ text: description }}
             onContentChange={handleDescChange('description')}
-          />
-          <ImageUploadEditor
-            content={image}
-            onContentChange={handleImageChange('image')}
-            uploadImage={uploadImage}
           />
         </DialogContent>
         <DialogActions>

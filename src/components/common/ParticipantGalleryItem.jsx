@@ -8,6 +8,8 @@ const ParticipantGalleryItem = props => {
 
   const content = props.content || {};
 
+  console.log(content);
+
   return (
     <>
       <div className="participant" onClick={() => setIsOpen(true)}>

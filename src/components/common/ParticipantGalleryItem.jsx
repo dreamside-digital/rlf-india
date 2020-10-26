@@ -12,33 +12,35 @@ const ParticipantGalleryItem = props => {
 
   return (
     <>
-      <div className="participant" onClick={() => setIsOpen(true)}>
+      <button className="participant" onClick={() => setIsOpen(true)}>
         <div className="participant-image">
           <div className="participant-image-container">
             <img src={content.image.imageSrc} alt={content.image.title}/>
           </div>
         </div>
-        <div className="participant-name">
+        <div className="participant-name pretty-link">
           {content.name}
         </div>
         <div className="participant-affiliate-organization">
           {content.affiliateOrganization}
         </div>
-      </div>
+      </button>
       <Dialog maxWidth="sm" fullWidth open={isOpen} PaperProps={{square: true}} onClose={() => setIsOpen(false)}>
         <DialogContent className="participant-modal">
-          <Grid container className="position-relative">
-            <Grid item xs={6}>
+          <Grid container className="position-relative" alignItems="center">
+            <Grid item xs={12} sm={4}>
               <div className="participant-image-lg">
                 <img src={content.image.imageSrc} alt={content.image.title}/>
               </div>
             </Grid>
-            <Grid item xs={6}>
-              <h2>{content.name}</h2>
+            <Grid item xs={12} sm={8}>
+              <h2 className="font-size-h2">{content.name}</h2>
               <div className="participant-affiliate-organization">{content.affiliateOrganization}</div>
             </Grid>
+          </Grid>
+          <Grid container>
             <Grid item xs={12}>
-              <div className="mt-10 mb-5" dangerouslySetInnerHTML={{__html: content.description}}/>
+              <div className="mt-5" dangerouslySetInnerHTML={{__html: content.description}}/>
             </Grid>
           </Grid>
         </DialogContent>

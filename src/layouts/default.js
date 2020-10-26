@@ -29,7 +29,7 @@ import favicon from '../assets/images/icon.png'
 
 export const editorTheme = {
   ...theme,
-  primaryColor: "#C34580",
+  primaryColor: "#C34580", // magenta
   editContainerHighlight: {
     ...theme.editContainerHighlight,
     outline: "1px solid #C34580",

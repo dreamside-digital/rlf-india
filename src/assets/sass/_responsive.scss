@@ -205,6 +205,40 @@
         font-size: 14px;
       }
     }
+
+    .participant {
+      .participant-image {
+        width: 160px;
+        height: 160px;
+
+        &:before {
+          left: calc(50% - 80px);
+          width: 160px;
+          height: 160px;
+        }
+      }
+
+      .participant-image-container {
+        width: 150px;
+        height: 150px;
+      }
+
+      .participant-image img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  .participant-modal {
+    text-align: center;
+
+    h2 {
+      margin-left: 0;
+    }
+    .participant-affiliate-organization {
+      margin-left: 0;
+    }
   }
 }
 

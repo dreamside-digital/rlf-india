@@ -51,7 +51,7 @@ class ParticipantGallery extends React.Component {
 
   render() {
     const { showModal, editingParticipant } = this.state;
-    let itemsKeys = Object.keys(this.props.content).reverse();
+    let itemsKeys = Object.keys(this.props.content)
 
     return (
       <div className={`collection width-100 mt-6 ${this.props.classes}`}>
@@ -68,7 +68,7 @@ class ParticipantGallery extends React.Component {
             const content = this.props.content[key];
 
             return (
-                <Grid item xs={6} sm={6} md={3} lg={2} key={key}>
+                <Grid item xs={6} sm={4} md={3} lg={2} key={key} style={{ display: 'flex', justifyContent: 'center' }}>
                   {
                     this.props.isEditingPage &&
                     <ThemeProvider theme={muiTheme}>

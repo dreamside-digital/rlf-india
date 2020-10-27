@@ -108,6 +108,7 @@ class HomePage extends React.Component {
             uploadImage={uploadImage}
             styles={{ backgroundPosition: 'bottom' }}
           >
+            <div className="gradient-overlay" />
             <section id="landing" className="animate__animated animate__fadeIn">
               <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
                 <Grid container>
@@ -168,6 +169,7 @@ class HomePage extends React.Component {
           uploadImage={uploadImage}
           styles={{ backgroundPosition: 'bottom' }}
         >
+          <div className="gradient-overlay" />
           <section id="landing" data-aos="fade-down">
             <Container maxWidth="lg" style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
               <Grid container>
@@ -195,18 +197,21 @@ class HomePage extends React.Component {
               <EditableParagraph classes="text-dark" content={content["intro-text"]} onSave={this.onSave("intro-text")} />
             </Grid>
           </Grid>
-          <Grid container className="title" justify="flex-end" data-aos="fade-up">
-          </Grid>
         </Section>
 
         <Section id="program-elements">
-          <h2>
-            <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
-          </h2>
-          <ProgramElements
-            content={content["program-elements-collection"]}
-            onSave={this.onSave("program-elements-collection")}
-          />
+          <Grid container>
+            <Grid item xs={12} md={8}>
+              <h2>
+                <EditableText content={content["program-elements-title"]} onSave={this.onSave("program-elements-title")} />
+              </h2>
+              <p className="text-small text-bold">{`Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`}</p>
+            </Grid>
+            <ProgramElements
+              content={content["program-elements-collection"]}
+              onSave={this.onSave("program-elements-collection")}
+            />
+          </Grid>
         </Section>
 
         <Section id="logistics" className="bg-secondary text-black">

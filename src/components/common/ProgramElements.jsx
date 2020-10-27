@@ -35,6 +35,8 @@ class ProgramElements extends React.Component {
     newContent[newItemKey] = {
       "program-elements-title": { "text": "Title" },
       "program-elements-start-date": { "date": "2020-10-11T00:00:00.000-04:00" },
+      "program-elements-end-date": { "date": "2020-10-12T00:00:00.000-04:00" },
+      "program-elements-timezone": { "text": "America/Toronto" },
       "program-elements-link": { "link": "/", "anchor": "Zoom Link" },
       "program-elements-text": { "text": `<p>Description text</p>` },
     }

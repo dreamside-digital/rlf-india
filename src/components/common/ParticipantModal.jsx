@@ -15,6 +15,10 @@ const emptyParticipant = {
   affiliateOrganization: '',
   description: 'Participant bio',
   image: {},
+  twitter: '',
+  linkedin: '',
+  instagram: '',
+  website: '',
 }
 
 class ParticipantModal extends React.Component {
@@ -52,12 +56,10 @@ class ParticipantModal extends React.Component {
     const id = newParticipant.id ? newParticipant.id : `participant-${Date.now()}`
 
     const data = {
-      id,
-      name: newParticipant.name,
-      affiliateOrganization: newParticipant.affiliateOrganization,
-      description: newParticipant.description,
-      image: newParticipant.image,
+      ...newParticipant,
+      id
     }
+
     this.props.onSaveItem(id)(data)
     this.props.closeModal()
     this.setState({ newParticipant: emptyParticipant })
@@ -72,7 +74,7 @@ class ParticipantModal extends React.Component {
   render() {
     const { handleDeleteParticipant, handleSaveParticipant, handleChange, handleImageChange, handleDescChange } = this;
     const { showModal, closeModal } = this.props;
-    const { name, affiliateOrganization, description, image, id } = this.state.newParticipant;
+    const { name, affiliateOrganization, description, image, id, twitter, linkedin, instagram, website } = this.state.newParticipant;
 
     return (
       <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -84,8 +86,13 @@ class ParticipantModal extends React.Component {
               Fill out this form to add a new participant.
             </DialogContentText>
           }
+          <ImageUploadEditor
+            content={image}
+            onContentChange={handleImageChange('image')}
+            uploadImage={uploadImage}
+          />
           <TextField
-            value={name}
+            value={name || ''}
             margin="dense"
             id="name"
             label="Name"
@@ -95,7 +102,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={affiliateOrganization}
+            value={affiliateOrganization || ''}
             margin="dense"
             id="affiliateOrganization"
             label="Affiliate Organization"
@@ -104,15 +111,50 @@ class ParticipantModal extends React.Component {
             onChange={handleChange('affiliateOrganization')}
             variant="outlined"
           />
+          <TextField
+            value={twitter || ''}
+            margin="dense"
+            id="twitter"
+            label="Twitter URL (optional)"
+            type="text"
+            fullWidth
+            onChange={handleChange('twitter')}
+            variant="outlined"
+          />
+          <TextField
+            value={linkedin || ''}
+            margin="dense"
+            id="linkedin"
+            label="Linkedin URL (optional)"
+            type="text"
+            fullWidth
+            onChange={handleChange('linkedin')}
+            variant="outlined"
+          />
+          <TextField
+            value={instagram || ''}
+            margin="dense"
+            id="instagram"
+            label="Instagram URL (optional)"
+            type="text"
+            fullWidth
+            onChange={handleChange('instagram')}
+            variant="outlined"
+          />
+          <TextField
+            value={website || ''}
+            margin="dense"
+            id="website"
+            label="Website (optional)"
+            type="text"
+            fullWidth
+            onChange={handleChange('website')}
+            variant="outlined"
+          />
           <RichTextEditor
-            content={{ text: description }}
+            content={{ text: description || '' }}
             onContentChange={handleDescChange('description')}
             classes="mb-1"
-          />
-          <ImageUploadEditor
-            content={image}
-            onContentChange={handleImageChange('image')}
-            uploadImage={uploadImage}
           />
         </DialogContent>
         <DialogActions>

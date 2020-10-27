@@ -213,7 +213,7 @@ body .nl-page {
 
   .header-bg-image {
     position: relative;
-    filter: contrast(1.5);
+    /*filter: contrast(1.5);*/
 
     & + .actions {
       top: calc(100% - 30px) !important;
@@ -677,7 +677,7 @@ body .nl-page {
     display: block;
     position: absolute;
     transition: all 0.5s ease-in-out;
-    filter: grayscale(0.5) contrast(1.5);
+    filter: grayscale(1) contrast(1.5);
     top: 0;
     left: 0;
     z-index: 2;
@@ -709,9 +709,19 @@ body .nl-page {
 
     a {
       margin-left: 20px;
+      color: $primary-color;
+      transition: all 0.3s ease-in;
 
       &:first-child {
         margin-left: 0;
+      }
+
+      &:hover {
+        color: $secondary-color;
+      }
+
+      &:focus {
+        color: $gray-500;
       }
     }
   }

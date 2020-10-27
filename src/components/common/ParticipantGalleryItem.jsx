@@ -43,25 +43,25 @@ const ParticipantGalleryItem = props => {
                 <div className="links">
                   {
                     content.linkedin &&
-                    <a href={content.linkedin}>
+                    <a href={content.linkedin} target="_blank" rel="noopener noreferrer">
                       <LinkedInIcon />
                     </a>
                   }
                   {
                     content.twitter &&
-                    <a href={content.twitter}>
+                    <a href={content.twitter} target="_blank" rel="noopener noreferrer">
                       <TwitterIcon />
                     </a>
                   }
                   {
                     content.instagram &&
-                    <a href={content.instagram}>
+                    <a href={content.instagram} target="_blank" rel="noopener noreferrer">
                       <InstagramIcon />
                     </a>
                   }
                   {
                     content.website &&
-                    <a href={content.website}>
+                    <a href={content.website} target="_blank" rel="noopener noreferrer">
                       <LanguageIcon />
                     </a>
                   }

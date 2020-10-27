@@ -56,16 +56,10 @@ class ParticipantModal extends React.Component {
     const id = newParticipant.id ? newParticipant.id : `participant-${Date.now()}`
 
     const data = {
-      id,
-      name: newParticipant.name,
-      affiliateOrganization: newParticipant.affiliateOrganization,
-      description: newParticipant.description,
-      twitter: newParticipant.twitter,
-      linkedin: newParticipant.linkedin,
-      instagram: newParticipant.instagram,
-      website: newParticipant.website,
-      image: newParticipant.image,
+      ...newParticipant,
+      id
     }
+
     this.props.onSaveItem(id)(data)
     this.props.closeModal()
     this.setState({ newParticipant: emptyParticipant })
@@ -98,7 +92,7 @@ class ParticipantModal extends React.Component {
             uploadImage={uploadImage}
           />
           <TextField
-            value={name}
+            value={name || ''}
             margin="dense"
             id="name"
             label="Name"
@@ -108,7 +102,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={affiliateOrganization}
+            value={affiliateOrganization || ''}
             margin="dense"
             id="affiliateOrganization"
             label="Affiliate Organization"
@@ -118,7 +112,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={twitter}
+            value={twitter || ''}
             margin="dense"
             id="twitter"
             label="Twitter URL (optional)"
@@ -128,7 +122,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={linkedin}
+            value={linkedin || ''}
             margin="dense"
             id="linkedin"
             label="Linkedin URL (optional)"
@@ -138,7 +132,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={instagram}
+            value={instagram || ''}
             margin="dense"
             id="instagram"
             label="Instagram URL (optional)"
@@ -148,7 +142,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={website}
+            value={website || ''}
             margin="dense"
             id="website"
             label="Website (optional)"
@@ -158,7 +152,7 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <RichTextEditor
-            content={{ text: description }}
+            content={{ text: description || '' }}
             onContentChange={handleDescChange('description')}
             classes="mb-1"
           />

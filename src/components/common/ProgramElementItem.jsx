@@ -9,10 +9,10 @@ import {
   LinkEditor,
   Editable,
 } from 'react-easy-editables';
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import LuxonUtils from "@date-io/luxon";
 import {DateTime} from "luxon";
-
+import TimezoneSelect from "./TimezoneSelect";
 
 const ProgramElementItemEditor = ({ content, onContentChange }) => {
 
@@ -25,8 +25,6 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
     });
   }
 
-  console.log(content)
-
   return(
     <div className="program-box mt-5">
       <Grid container className="position-relative">
@@ -38,33 +36,32 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
           />
         </Grid>
         <MuiPickersUtilsProvider utils={LuxonUtils}>
-        <Grid item xs={6}>
-            <KeyboardDatePicker
+          <Grid item xs={6}>
+            <KeyboardDateTimePicker
               fullWidth
               margin="dense"
               id="date"
               label="Start date"
-              format="MM/dd/yyyy"
+              format="MM/dd/yyyy h:mm a"
               value={content["program-elements-start-date"]["date"]}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
               onChange={date => {
-                console.log(date.toISO())
-                handleEditorChange('program-elements-start-date')({"date": date.toISO()})
+                handleEditorChange('program-elements-start-date')({"date": date.toISO() })
               }}
               inputVariant="outlined"
               variant="inline"
             />
-        </Grid>
-        <Grid item xs={6}>
-            <KeyboardDatePicker
+          </Grid>
+          <Grid item xs={6}>
+            <KeyboardDateTimePicker
               fullWidth
               margin="dense"
               id="date"
               label="End date"
-              format="MM/dd/yyyy"
-              value={content["program-elements-end-date"] ? content["program-elements-end-date"]["date"] : null}
+              format="MM/dd/yyyy h:mm a"
+              value={content["program-elements-end-date"] && content["program-elements-end-date"]["date"] ? content["program-elements-end-date"]["date"] : null}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
@@ -73,8 +70,19 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               }}
               inputVariant="outlined"
             />
-        </Grid>
+          </Grid>
         </MuiPickersUtilsProvider>
+        <Grid item xs={12}>
+          <label className="text-small" htmlFor="timezone">Timezone</label>
+          <TimezoneSelect
+            handleChange={value => {
+              handleEditorChange('program-elements-timezone')({"text": value})
+            }}
+            name="timezone"
+            id="timezone"
+            value={content["program-elements-timezone"] ? content["program-elements-timezone"]["text"] : undefined}
+          />
+        </Grid>
         <Grid item xs={12}>
           <RichTextEditor
             classes="mb-3 mt-3"
@@ -104,12 +112,13 @@ const ProgramElementItem = props => {
     props.onSave(newContent)
   }
 
-  const startDate = DateTime.fromISO(content["program-elements-start-date"]["date"])
-  const endDate = content["program-elements-end-date"] && DateTime.fromISO(content["program-elements-end-date"]["date"]);
+  const startDate = DateTime.fromISO(content["program-elements-start-date"]["date"]).setZone(content["program-elements-timezone"]["text"])
+  const endDate = DateTime.fromISO(content["program-elements-end-date"]["date"]).setZone(content["program-elements-timezone"]["text"]);
   const today = DateTime.local();
   const isPast = endDate ? endDate < today : startDate < today;
   const isCurrent = endDate ? startDate < today && endDate > today  : startDate.hasSame(today, 'day');
   const isUpcoming = startDate > today;
+  const sameDay = startDate.hasSame(endDate, 'day')
 
   return (
     <Editable
@@ -150,7 +159,8 @@ const ProgramElementItem = props => {
               {content["program-elements-title"]["text"]}
             </h3>
             <div className="font-size-h6">
-              {startDate.toLocaleString({ month: 'long', day: 'numeric' })} {endDate && `- ${endDate.toLocaleString({ day: 'numeric' })}`}
+              {startDate.toLocaleString({ month: 'long', day: 'numeric' })} {!sameDay && `- ${endDate.toLocaleString({ day: 'numeric' })}`}
+              <div className="text-muted text-xs"><time>{startDate.toLocaleString(DateTime.TIME_SIMPLE)}</time> - <time>{endDate.toLocaleString(DateTime.TIME_SIMPLE)}</time></div>
             </div>
           </Grid>
           <Grid item md={7} xs={11} className={isOpen ? '' : 'hide-on-med-and-down'}>
@@ -194,6 +204,8 @@ ProgramElementItem.defaultProps = {
   content: {
     "program-elements-title": { "text": "Title" },
     "program-elements-start-date": { "date": "2020-10-11T00:00:00.000-04:00" },
+    "program-elements-end-date": { "date": "2020-10-12T00:00:00.000-04:00" },
+    "program-elements-timezone": { "text": "America/Toronto" },
     "program-elements-link": { "link": "/", "anchor": "Zoom Link" },
     "program-elements-text": { "text": `<p>Description text</p>` },
   },

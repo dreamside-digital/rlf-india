@@ -15,6 +15,10 @@ const emptyParticipant = {
   affiliateOrganization: '',
   description: 'Participant bio',
   image: {},
+  twitter: '',
+  linkedin: '',
+  instagram: '',
+  website: '',
 }
 
 class ParticipantModal extends React.Component {
@@ -56,6 +60,10 @@ class ParticipantModal extends React.Component {
       name: newParticipant.name,
       affiliateOrganization: newParticipant.affiliateOrganization,
       description: newParticipant.description,
+      twitter: newParticipant.twitter,
+      linkedin: newParticipant.linkedin,
+      instagram: newParticipant.instagram,
+      website: newParticipant.website,
       image: newParticipant.image,
     }
     this.props.onSaveItem(id)(data)
@@ -72,7 +80,7 @@ class ParticipantModal extends React.Component {
   render() {
     const { handleDeleteParticipant, handleSaveParticipant, handleChange, handleImageChange, handleDescChange } = this;
     const { showModal, closeModal } = this.props;
-    const { name, affiliateOrganization, description, image, id } = this.state.newParticipant;
+    const { name, affiliateOrganization, description, image, id, twitter, linkedin, instagram, website } = this.state.newParticipant;
 
     return (
       <Dialog open={showModal} onClose={closeModal} aria-labelledby="form-dialog-title" scroll="body">
@@ -110,40 +118,40 @@ class ParticipantModal extends React.Component {
             variant="outlined"
           />
           <TextField
-            value={name}
+            value={twitter}
             margin="dense"
             id="twitter"
-            label="Twitter URL"
+            label="Twitter URL (optional)"
             type="text"
             fullWidth
             onChange={handleChange('twitter')}
             variant="outlined"
           />
           <TextField
-            value={name}
+            value={linkedin}
             margin="dense"
             id="linkedin"
-            label="Linkedin URL"
+            label="Linkedin URL (optional)"
             type="text"
             fullWidth
             onChange={handleChange('linkedin')}
             variant="outlined"
           />
           <TextField
-            value={name}
+            value={instagram}
             margin="dense"
             id="instagram"
-            label="Instagram URL"
+            label="Instagram URL (optional)"
             type="text"
             fullWidth
             onChange={handleChange('instagram')}
             variant="outlined"
           />
           <TextField
-            value={name}
+            value={website}
             margin="dense"
             id="website"
-            label="Website"
+            label="Website (optional)"
             type="text"
             fullWidth
             onChange={handleChange('website')}

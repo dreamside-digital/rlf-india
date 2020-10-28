@@ -114,7 +114,7 @@ class HomePage extends React.Component {
                 <Grid container>
                   <Grid item md={8}>
                     <div className="mb-4">
-                      <div className="text-white font-size-h4 mb-4">
+                      <div className="text-white font-size-h4 mb-4 event-dates">
                         <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                       </div>
                     </div>
@@ -175,7 +175,7 @@ class HomePage extends React.Component {
               <Grid container>
                 <Grid item md={8}>
                   <div className="mb-4">
-                      <div className="text-white font-size-h4 mb-4">
+                      <div className="text-white font-size-h4 mb-4 event-dates">
                         <EditableText content={content["landing-subtitle"]} onSave={this.onSave("landing-subtitle")} />
                       </div>
                     </div>
@@ -194,7 +194,7 @@ class HomePage extends React.Component {
               <h2 className="text-dark">
                 <EditableText content={content["intro-title"]} onSave={this.onSave("intro-title")} />
               </h2>
-              <EditableParagraph classes="text-dark" content={content["intro-text"]} onSave={this.onSave("intro-text")} />
+              <EditableParagraph classes="text-dark mb-3" content={content["intro-text"]} onSave={this.onSave("intro-text")} />
             </Grid>
           </Grid>
         </Section>

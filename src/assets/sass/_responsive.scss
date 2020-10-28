@@ -64,11 +64,15 @@
     }
 
     #landing {
+      height: calc(60vh);
+
       .header-image {
         padding: 1rem;
       }
 
-      height: calc(60vh - 67px)
+      .event-dates {
+        font-size: 1.125rem;
+      }
     }
 
     #intro {
@@ -80,8 +84,6 @@
     }
 
     #logistics {
-      background: $white;
-
       .link-area {
         padding-left: 0;
       }

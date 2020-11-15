@@ -34,9 +34,9 @@ class ProgramElements extends React.Component {
     const newItemKey = `program-elements-${Date.now()}`
     newContent[newItemKey] = {
       "program-elements-title": { "text": "Title" },
-      "program-elements-start-date": { "date": "2020-10-11T00:00:00.000-04:00" },
-      "program-elements-end-date": { "date": "2020-10-12T00:00:00.000-04:00" },
-      "program-elements-timezone": { "text": "America/Toronto" },
+      "program-elements-start-date": new Date().toISOString(),
+      "program-elements-end-date": new Date().toISOString(),
+      "program-elements-timezone": Intl.DateTimeFormat().resolvedOptions().timeZone,
       "program-elements-link": { "link": "/", "anchor": "Zoom Link" },
       "program-elements-text": { "text": `<p>Description text</p>` },
     }
@@ -45,8 +45,8 @@ class ProgramElements extends React.Component {
   }
 
   render() {
-    // show the latest entries first
-    let itemsKeys = Object.keys(this.props.content).reverse()
+    // show in order created
+    let itemsKeys = Object.keys(this.props.content)
 
     return (
       <div className={`collection width-100 mt-6 ${this.props.classes}`}>

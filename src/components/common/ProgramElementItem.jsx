@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Grid from '@material-ui/core/Grid';
-
-import 'react-image-lightbox/style.css';
+import { connect } from "react-redux";
 
 import {
   PlainTextEditor,
@@ -13,6 +12,16 @@ import {KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pick
 import LuxonUtils from "@date-io/luxon";
 import {DateTime} from "luxon";
 import TimezoneSelect from "./TimezoneSelect";
+
+import { showNotification } from "../../redux/actions";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showNotification: (text) => {
+      dispatch(showNotification(text));
+    },
+  };
+};
 
 const ProgramElementItemEditor = ({ content, onContentChange }) => {
 
@@ -43,12 +52,12 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               id="date"
               label="Start date"
               format="MM/dd/yyyy h:mm a"
-              value={content["program-elements-start-date"]["date"]}
+              value={content["program-elements-start-date"]}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
               onChange={date => {
-                handleEditorChange('program-elements-start-date')({"date": date.toISO() })
+                onContentChange({ ...content, 'program-elements-start-date': date })
               }}
               inputVariant="outlined"
               variant="inline"
@@ -61,12 +70,14 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               id="date"
               label="End date"
               format="MM/dd/yyyy h:mm a"
-              value={content["program-elements-end-date"] && content["program-elements-end-date"]["date"] ? content["program-elements-end-date"]["date"] : null}
+              value={content["program-elements-end-date"]}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
               onChange={date => {
-                handleEditorChange('program-elements-end-date')(date ? {"date": date.toISO() } : null)
+                console.log({date})
+                console.log("content['program-elements-end-date']", content['program-elements-end-date'])
+                onContentChange({ ...content, 'program-elements-end-date': date })
               }}
               inputVariant="outlined"
             />
@@ -76,11 +87,11 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
           <label className="text-small" htmlFor="timezone">Timezone</label>
           <TimezoneSelect
             handleChange={value => {
-              handleEditorChange('program-elements-timezone')({"text": value})
+              onContentChange({ ...content, 'program-elements-timezone': value })
             }}
             name="timezone"
             id="timezone"
-            value={content["program-elements-timezone"] ? content["program-elements-timezone"]["text"] : undefined}
+            value={content["program-elements-timezone"]}
           />
         </Grid>
         <Grid item xs={12}>
@@ -106,19 +117,74 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
 const ProgramElementItem = props => {
   const [ isOpen, setIsOpen ] = useState(false)
 
-  const content = props.content || {};
+  const parseDate = date => {
+    if (!date) {
+      return null
+    }
 
-  const handleSave = newContent => {
-    props.onSave(newContent)
+    if (typeof(date) === 'string') {
+      return DateTime.fromISO(date)
+    }
+
+    return date
   }
 
-  const startDate = DateTime.fromISO(content["program-elements-start-date"]["date"]).setZone(content["program-elements-timezone"]["text"])
-  const endDate = DateTime.fromISO(content["program-elements-end-date"]["date"]).setZone(content["program-elements-timezone"]["text"]);
+  const content = {
+    ...props.content,
+    'program-elements-start-date': parseDate(props.content['program-elements-start-date']),
+    'program-elements-end-date': parseDate(props.content['program-elements-end-date'])
+  }
+
+
+  const convertDate = (date, timezone) => {
+    if (!date || !typeof(date) === 'object') {
+      return null;
+    }
+
+    console.log("date", date)
+
+    const dateWithTZ = date.setZone(timezone, { keepLocalTime: true })
+    return dateWithTZ.toISO()
+  }
+
+  const getLocalDateTime = date => {
+    console.log("get local date time", date)
+    if (!date || !typeof(date) === 'object') {
+      return null;
+    }
+
+    return date.setZone(DateTime.local().zoneName)
+  }
+
+  const handleSave = newContent => {
+    if (!newContent['program-elements-start-date'] || !newContent['program-elements-end-date']) {
+      return props.showNotification("Start date and end date are required")
+    }
+    console.log({newContent})
+    const data = {
+      ...newContent,
+      'program-elements-start-date': convertDate(newContent['program-elements-start-date'], newContent['program-elements-timezone']),
+      'program-elements-end-date': convertDate(newContent['program-elements-end-date'], newContent['program-elements-timezone']),
+    }
+
+    props.onSave(data)
+  }
+
+
+  const startDate = getLocalDateTime(content["program-elements-start-date"])
+  const endDate = getLocalDateTime(content["program-elements-end-date"])
+
+  if (!startDate || !endDate) {
+    return null
+  }
+
   const today = DateTime.local();
   const isPast = endDate ? endDate < today : startDate < today;
   const isCurrent = endDate ? startDate < today && endDate > today  : startDate.hasSame(today, 'day');
   const isUpcoming = startDate > today;
-  const sameDay = startDate.hasSame(endDate, 'day')
+  const sameDay = startDate && endDate && startDate.hasSame(endDate, 'day')
+
+  console.log("content", content)
 
   return (
     <Editable
@@ -159,7 +225,7 @@ const ProgramElementItem = props => {
               {content["program-elements-title"]["text"]}
             </h3>
             <div className="font-size-h6">
-              {startDate.toLocaleString({ month: 'long', day: 'numeric' })} {!sameDay && `- ${endDate.toLocaleString({ day: 'numeric' })}`}
+              {startDate.toLocaleString({ month: 'long', day: 'numeric' })} {endDate && !sameDay && `- ${endDate.toLocaleString({ day: 'numeric' })}`}
               <div className="text-muted text-xs"><time>{startDate.toLocaleString(DateTime.TIME_SIMPLE)}</time> - <time>{endDate.toLocaleString(DateTime.TIME_SIMPLE)}</time></div>
             </div>
           </Grid>
@@ -203,9 +269,9 @@ const ProgramElementItem = props => {
 ProgramElementItem.defaultProps = {
   content: {
     "program-elements-title": { "text": "Title" },
-    "program-elements-start-date": { "date": "2020-10-11T00:00:00.000-04:00" },
-    "program-elements-end-date": { "date": "2020-10-12T00:00:00.000-04:00" },
-    "program-elements-timezone": { "text": "America/Toronto" },
+    "program-elements-start-date": "2020-10-11T00:00:00.000-04:00",
+    "program-elements-end-date": "2020-10-12T00:00:00.000-04:00",
+    "program-elements-timezone": "America/Toronto",
     "program-elements-link": { "link": "/", "anchor": "Zoom Link" },
     "program-elements-text": { "text": `<p>Description text</p>` },
   },
@@ -213,4 +279,4 @@ ProgramElementItem.defaultProps = {
   onSave: () => { console.log('implement a function to save changes') }
 }
 
-export default ProgramElementItem;
+export default connect(null, mapDispatchToProps)(ProgramElementItem);

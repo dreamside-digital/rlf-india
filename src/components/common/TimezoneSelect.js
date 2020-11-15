@@ -71,6 +71,7 @@ TimeZoneSelect.defaultProps = {
   classes: "",
   selectClasses: "",
   handleChange: (selected) => console.log("Implement a function to save selection", selected),
-  isClearable: true,
+  isClearable: false,
   isMulti: false,
+  timezone: "America/Toronto"
 }

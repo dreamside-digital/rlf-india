@@ -34,6 +34,9 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
     });
   }
 
+  const startDate = content["program-elements-start-date"].setZone(content["program-elements-timezone"])
+  const endDate = content["program-elements-end-date"].setZone(content["program-elements-timezone"])
+
   return(
     <div className="program-box mt-5">
       <Grid container className="position-relative">
@@ -52,7 +55,7 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               id="date"
               label="Start date"
               format="MM/dd/yyyy h:mm a"
-              value={content["program-elements-start-date"]}
+              value={startDate}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
@@ -69,13 +72,11 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
               id="date"
               label="End date"
               format="MM/dd/yyyy h:mm a"
-              value={content["program-elements-end-date"]}
+              value={endDate}
               KeyboardButtonProps={{
                 'aria-label': 'select date',
               }}
               onChange={date => {
-                console.log({date})
-                console.log("content['program-elements-end-date']", content['program-elements-end-date'])
                 onContentChange({ ...content, 'program-elements-end-date': date })
               }}
               inputVariant="outlined"
@@ -118,7 +119,6 @@ const ProgramElementItem = props => {
   const content = props.content || {}
 
   const convertDate = (date, timezone) => {
-    console.log("date to convert", date)
 
     const dateWithTZ = date.setZone(timezone, { keepLocalTime: true })
     return dateWithTZ.toISO()

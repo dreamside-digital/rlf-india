@@ -60,7 +60,6 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
                 onContentChange({ ...content, 'program-elements-start-date': date })
               }}
               inputVariant="outlined"
-              variant="inline"
             />
           </Grid>
           <Grid item xs={6}>
@@ -116,56 +115,37 @@ const ProgramElementItemEditor = ({ content, onContentChange }) => {
 
 const ProgramElementItem = props => {
   const [ isOpen, setIsOpen ] = useState(false)
-
-  const parseDate = date => {
-    if (!date) {
-      return null
-    }
-
-    if (typeof(date) === 'string') {
-      return DateTime.fromISO(date)
-    }
-
-    return date
-  }
-
-  const content = {
-    ...props.content,
-    'program-elements-start-date': parseDate(props.content['program-elements-start-date']),
-    'program-elements-end-date': parseDate(props.content['program-elements-end-date'])
-  }
-
+  const content = props.content || {}
 
   const convertDate = (date, timezone) => {
-    if (!date || !typeof(date) === 'object') {
-      return null;
-    }
-
-    console.log("date", date)
+    console.log("date to convert", date)
 
     const dateWithTZ = date.setZone(timezone, { keepLocalTime: true })
     return dateWithTZ.toISO()
   }
 
   const getLocalDateTime = date => {
-    console.log("get local date time", date)
-    if (!date || !typeof(date) === 'object') {
-      return null;
+    try {
+      return date.setZone(DateTime.local().zoneName)
+    } catch(err) {
+      console.log("err getting local date", err)
+      return date
     }
 
-    return date.setZone(DateTime.local().zoneName)
   }
 
   const handleSave = newContent => {
     if (!newContent['program-elements-start-date'] || !newContent['program-elements-end-date']) {
       return props.showNotification("Start date and end date are required")
     }
-    console.log({newContent})
+
     const data = {
       ...newContent,
       'program-elements-start-date': convertDate(newContent['program-elements-start-date'], newContent['program-elements-timezone']),
       'program-elements-end-date': convertDate(newContent['program-elements-end-date'], newContent['program-elements-timezone']),
     }
+
+    console.log({ eventData: data })
 
     props.onSave(data)
   }
@@ -183,8 +163,6 @@ const ProgramElementItem = props => {
   const isCurrent = endDate ? startDate < today && endDate > today  : startDate.hasSame(today, 'day');
   const isUpcoming = startDate > today;
   const sameDay = startDate && endDate && startDate.hasSame(endDate, 'day')
-
-  console.log("content", content)
 
   return (
     <Editable
@@ -269,9 +247,9 @@ const ProgramElementItem = props => {
 ProgramElementItem.defaultProps = {
   content: {
     "program-elements-title": { "text": "Title" },
-    "program-elements-start-date": "2020-10-11T00:00:00.000-04:00",
-    "program-elements-end-date": "2020-10-12T00:00:00.000-04:00",
-    "program-elements-timezone": "America/Toronto",
+    "program-elements-start-date": new Date().toISOString(),
+    "program-elements-end-date": new Date().toISOString(),
+    "program-elements-timezone": Intl.DateTimeFormat().resolvedOptions().timeZone,
     "program-elements-link": { "link": "/", "anchor": "Zoom Link" },
     "program-elements-text": { "text": `<p>Description text</p>` },
   },

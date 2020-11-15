@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button"
 import { connect } from "react-redux";
+import { DateTime } from "luxon";
 
 import ProgramElementItem from "./ProgramElementItem"
 
@@ -59,7 +60,11 @@ class ProgramElements extends React.Component {
           </div>
         }
         {itemsKeys.filter(k => this.props.content[k]).map((key,index) => {
-          const content = this.props.content[key];
+          const content = {
+            ...this.props.content[key],
+            'program-elements-start-date': DateTime.fromISO(this.props.content[key]['program-elements-start-date']),
+            'program-elements-end-date': DateTime.fromISO(this.props.content[key]['program-elements-end-date'])
+          };
           return(
             <ProgramElementItem
               index={index}

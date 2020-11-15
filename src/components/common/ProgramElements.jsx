@@ -45,8 +45,8 @@ class ProgramElements extends React.Component {
   }
 
   render() {
-    // show in order created
-    let itemsKeys = Object.keys(this.props.content)
+    // show lastest item first
+    let itemsKeys = Object.keys(this.props.content).reverse()
 
     return (
       <div className={`collection width-100 mt-6 ${this.props.classes}`}>
